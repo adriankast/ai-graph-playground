@@ -1,0 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Node {
+  id            Int      @id @default(autoincrement())
+  name          String   @unique
+  edgesFrom     Edge[]   @relation("edgesFrom")
+  edgesTo       Edge[]   @relation("edgesTo")
+  createdAt     DateTime @default(now())
+}
+
+model Edge {
+  id        Int      @id @default(autoincrement())
+  title     String
+  sourceId  Int
+  source    Node     @relation(name: "edgesFrom", fields: [sourceId], references: [id])
+  targetId  Int
+  target    Node     @relation(name: "edgesTo", fields: [targetId], references: [id])
+}
