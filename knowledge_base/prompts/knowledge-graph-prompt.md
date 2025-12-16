@@ -19,21 +19,7 @@ I need to implement an interactive Knowledge Graph visualization in my Next.js p
 
 3.  **Create Card Component**:
     If not already present, create `src/components/ui/card.tsx`. A simple version is sufficient:
-    ```tsx
-    import * as React from "react"
-    import { cn } from "@/lib/utils"
-
-    const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-      <div
-        ref={ref}
-        className={cn("rounded-xl border bg-card text-card-foreground shadow", className)}
-        {...props}
-      />
-    ))
-    Card.displayName = "Card"
-
-    export { Card }
-    ```
+    `npx shadcn@latest add card`
 
 4.  **Create Graph Layout Logic**:
     Create `src/lib/graph-layout.ts` with the following radial layout algorithm:
