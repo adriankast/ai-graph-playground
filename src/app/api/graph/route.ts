@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import ollama from "ollama";
+import { prisma } from '@/lib/prisma'
+
 
 interface Node {
     id: string;
@@ -16,6 +18,16 @@ interface Edge {
 }
 
 export async function GET() {
+
+    // await prisma.node.create({
+    //     data: {
+    //         id: 1,
+    //         name: 'Node 1',
+    //     }
+    // });
+    const dbNodes = await prisma.node.findMany();
+    console.log("DB Nodes:", dbNodes);
+
     const batch = await ollama.embed({
         model: 'embeddinggemma',
         input: [
